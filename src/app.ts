@@ -11,7 +11,7 @@ const app = express();
 
 // CORS - Permitir requests del frontend
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Vite default port
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -44,9 +44,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Rutas principales de Pokemon
-app.use('/api/pokemon', pokemonRoutes);
-
 // Ruta raíz - Info de la API
 app.get('/', (req, res) => {
   res.json({
@@ -70,6 +67,9 @@ app.get('/', (req, res) => {
     documentation: 'https://pokeapi.co/docs/v2'
   });
 });
+
+// Rutas principales de Pokemon
+app.use('/api/pokemon', pokemonRoutes);
 
 // ==========================================
 // MIDDLEWARE DE ERROR (al final)
