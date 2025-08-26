@@ -1,9 +1,15 @@
-import { Request, Response, Router } from "express";
-import { pokemonController, PokemonController } from "../controllers/pokemonController";
+// src/routes/pokemon.ts - VERSIÓN BÁSICA PARA DEBUG
+import { Router } from 'express';
+import { pokemonController } from '../controllers/pokemonController.js';
 
+const router = Router();
 
-const routePokemon = Router();
+// Solo las rutas esenciales primero
+router.get('/', pokemonController.getPokemonList.bind(pokemonController));
+router.get('/search', pokemonController.searchPokemon.bind(pokemonController));
+router.get('/random', pokemonController.getRandomPokemon.bind(pokemonController));
 
-routePokemon.get('/:id', (req: Request, res: Response) => pokemonController.getPokemon(req, res));
+// Ruta con parámetro AL FINAL
+router.get('/:identifier', pokemonController.getPokemon.bind(pokemonController));
 
-export default routePokemon;
+export default router;

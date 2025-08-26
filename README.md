@@ -47,4 +47,4 @@ agregando comando `npm run dev` llama a server.ts
 agregue los tipos necesarios para el proyecto
 
 ## services/pokemonService.ts
-Definición de la clase de pokemon service
+Definición de la clase de pokemon service creando una clase para instanciar axios con el contructor y crear el primer metodo de obtener pokemon
