@@ -76,19 +76,19 @@ app.use('/api/pokemon', pokemonRoutes);
 // ==========================================
 
 // 404 - Ruta no encontrada
-app.use('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    error: `Route ${req.method} ${req.path} not found`,
-    availableEndpoints: [
-      '/health',
-      '/api/pokemon',
-      '/api/pokemon/:id',
-      '/api/pokemon/search',
-      '/api/pokemon/random'
-    ]
-  });
-});
+// app.use('*', (req, res) => {
+//   res.status(404).json({
+//     success: false,
+//     error: `Route ${req.method} ${req.path} not found`,
+//     availableEndpoints: [
+//       '/health',
+//       '/api/pokemon',
+//       '/api/pokemon/:id',
+//       '/api/pokemon/search',
+//       '/api/pokemon/random'
+//     ]
+//   });
+// });
 
 // Error handler global
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
