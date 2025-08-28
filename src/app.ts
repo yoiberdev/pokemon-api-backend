@@ -35,7 +35,7 @@ app.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: AppConfig.nodeEnv,
-    version: '2.0.0'
+    version: '1.0.0'
   })
 })
 
@@ -43,7 +43,7 @@ app.get('/health', (req, res) => {
 app.get('/', (req, res) => {
   res.json({
     message: 'Pokemon API Backend - Refactor',
-    version: '2.0.0',
+    version: '1.0.0',
     arquitectura: 'Clean Architecture con principios SOLID',
     endpoints: {
       health: '/health',
