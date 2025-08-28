@@ -83,6 +83,7 @@ src/
 * Caché en memoria con `node-cache` para evitar llamadas repetidas.
 * Middleware de errores para devolver JSON claros.
 * Estructura modular para que sea más fácil mantener y extender.
+* Montar proyecto con render para que cada push se despliegue solo.
 
 ---
 
@@ -90,7 +91,6 @@ src/
 
 * Agregar tests automáticos con Jest o Supertest (me interesa aprenderlo).
 * Integrar documentación con Swagger para ver los endpoints más fácil.
-* Montar un pipeline de CI/CD (por ejemplo, con Render + GitHub Actions) para que cada push despliegue solo.
 * Optimizar la carga de la lista (ahora pide detalle de cada Pokémon, me gustaría probar limitar concurrencia o usar otra estrategia).
 
 ---
@@ -99,9 +99,8 @@ src/
 
 * Cómo manejar paginación con `offset` y `limit`.
 * Mejoré mi manejo de capas en Express y TypeScript.
+* Entendí porque se usa moduleJs en proyectos con Typescript.
 * Vi en la práctica cómo ayuda tener un caché para no saturar una API externa.
-* Aprendí qué pasos seguiría para un deploy con Render y GitHub Actions.
+* Aprendí qué pasos seguiría para un deploy con Render.
 
 ---
-
-¿Quieres que te arme también un apartado de **cómo desplegar en Render** explicado en este mismo estilo, como si fueras tú el que lo investigó?
