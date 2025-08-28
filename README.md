@@ -100,6 +100,7 @@ src/
 * Cómo manejar paginación con `offset` y `limit`.
 * Mejoré mi manejo de capas en Express y TypeScript.
 * Entendí porque se usa moduleJs en proyectos con Typescript.
+* Aprendí la definición y a manejar middlewares. 
 * Vi en la práctica cómo ayuda tener un caché para no saturar una API externa.
 * Aprendí qué pasos seguiría para un deploy con Render.
 

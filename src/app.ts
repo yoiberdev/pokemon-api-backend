@@ -1,51 +1,50 @@
-import express, { Request, Response } from 'express';
-import cors from 'cors';
-import { AppConfig } from './config/index.js';
-import pokemonRoutes from './routes/pokemon.js';
+import express from 'express'
+import cors from 'cors'
+import { AppConfig } from './config/index.js'
+import pokemonRoutes from './routes/pokemon.js'
 
-const app = express();
+const app = express()
 
-// CORS - Permitir requests del frontend
 app.use(cors({
   origin: AppConfig.frontendUrl,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+}))
 
-// Parsear JSON
-app.use(express.json({ limit: '10mb' }));
+// Middleware para poder leer JSON en las requests con un maximo de 10mb
+app.use(express.json({ limit: '10mb' }))
 
-// Parsear URL encoded data
-app.use(express.urlencoded({ extended: true }));
+// Middleware para poder leer data de formularios (usando qs en lugar de querystring)
+app.use(express.urlencoded({ extended: true }))
 
-// Logging middleware simple
+// Middleware simple para mostrar cada request en consola
 app.use((req, res, next) => {
-  const timestamp = new Date().toISOString();
-  console.log(`${timestamp} - ${req.method} ${req.path}`);
-  next();
-});
+  const ahora = new Date().toISOString()
+  console.log(`${ahora} - ${req.method} ${req.path}`)
+  next()
+})
 
 // ==========================================
 // RUTAS
 // ==========================================
 
-// Health check
+// Endpoint para saber si el server está arriba
 app.get('/health', (req, res) => {
   res.json({ 
-    status: 'OK', 
+    status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: AppConfig.nodeEnv,
     version: '2.0.0'
-  });
-});
+  })
+})
 
-// Ruta raíz
+// Ruta raíz (info de la API)
 app.get('/', (req, res) => {
   res.json({
-    message: 'Pokemon API Backend - Refactored',
+    message: 'Pokemon API Backend - Refactor',
     version: '2.0.0',
-    architecture: 'Clean Architecture with SOLID principles',
+    arquitectura: 'Clean Architecture con principios SOLID',
     endpoints: {
       health: '/health',
       pokemon: {
@@ -61,37 +60,39 @@ app.get('/', (req, res) => {
         clear: 'DELETE /api/pokemon/cache',
       }
     },
-    documentation: 'https://pokeapi.co/docs/v2'
-  });
-});
+    docs: 'https://pokeapi.co/docs/v2'
+  })
+})
 
-// Rutas principales de Pokemon
-app.use('/api/pokemon', pokemonRoutes);
+// Rutas de Pokémon
+app.use('/api/pokemon', pokemonRoutes)
 
-// 404 - Ruta no encontrada
-app.use((req: Request, res: Response) => {
+// 404 - cuando la ruta no existe
+app.use((req, res) => {
   res.status(404).json({
     success: false,
-    error: `Route ${req.method} ${req.originalUrl} not found`,
-    availableEndpoints: [
+    error: `La ruta ${req.method} ${req.originalUrl} no existe`,
+    endpointsDisponibles: [
       '/health',
       '/api/pokemon',
       '/api/pokemon/:id',
       '/api/pokemon/search',
       '/api/pokemon/random',
     ],
-  });
-});
+  })
+})
 
-// Error handler global
+// Middleware para manejar errores generales
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('💥 Unhandled Error:', err);
+  console.error('Error no controlado:', err)
   
   res.status(500).json({
     success: false,
-    error: 'Internal Server Error',
-    message: AppConfig.nodeEnv === 'development' ? err.message : 'Something went wrong'
-  });
-});
+    error: 'Error interno del servidor',
+    message: AppConfig.nodeEnv === 'development' 
+      ? err.message 
+      : 'Algo salió mal'
+  })
+})
 
-export default app;
+export default app
