@@ -13,7 +13,7 @@ Este proyecto es un backend en **Node.js + Express + TypeScript** que consume la
 1. Clonar el repo
 
    ```bash
-   git clone https://github.com/tuusuario/pokemon-api-backend.git
+   git clone https://github.com/yoiberdev/pokemon-api-backend.git
    cd pokemon-api-backend
    ```
 
