@@ -1,6 +1,6 @@
-// src/app.ts
 import express from 'express';
 import cors from 'cors';
+import { AppConfig } from './config/index.js';
 import pokemonRoutes from './routes/pokemon.js';
 
 const app = express();
@@ -11,7 +11,7 @@ const app = express();
 
 // CORS - Permitir requests del frontend
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: AppConfig.frontendUrl,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -33,22 +33,23 @@ app.use((req, res, next) => {
 // RUTAS
 // ==========================================
 
-// Health check - Verificar que la API funciona
+// Health check
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development',
-    version: '1.0.0'
+    environment: AppConfig.nodeEnv,
+    version: '2.0.0'
   });
 });
 
-// Ruta raíz - Info de la API
+// Ruta raíz
 app.get('/', (req, res) => {
   res.json({
-    message: '🚀 Pokemon API Backend',
-    version: '1.0.0',
+    message: '🚀 Pokemon API Backend - Refactored',
+    version: '2.0.0',
+    architecture: 'Clean Architecture with SOLID principles',
     endpoints: {
       health: '/health',
       pokemon: {
@@ -71,14 +72,33 @@ app.get('/', (req, res) => {
 // Rutas principales de Pokemon
 app.use('/api/pokemon', pokemonRoutes);
 
+// ==========================================
+// MIDDLEWARE DE ERROR
+// ==========================================
+
+// 404 - Ruta no encontrada
+// app.use('*', (req, res) => {
+//   res.status(404).json({
+//     success: false,
+//     error: `Route ${req.method} ${req.path} not found`,
+//     availableEndpoints: [
+//       '/health',
+//       '/api/pokemon',
+//       '/api/pokemon/:id',
+//       '/api/pokemon/search',
+//       '/api/pokemon/random'
+//     ]
+//   });
+// });
+
 // Error handler global
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('Unhandled Error:', err);
+  console.error('💥 Unhandled Error:', err);
   
   res.status(500).json({
     success: false,
     error: 'Internal Server Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+    message: AppConfig.nodeEnv === 'development' ? err.message : 'Something went wrong'
   });
 });
 

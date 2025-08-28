@@ -1,50 +1,112 @@
-# Planificación
+# 🚀 Pokémon API Backend
 
-1. Crear proyecto backend de NODEJS + EXPRESJS + TYPESCRIPT 
-2. Crear proyecto frontend de REACTJS + TYPESCRIPT
-3. Arquitectura de proyecto backend: N Capas
-4. Configuración inicial
+Backend en **Node.js + Express + TypeScript** que consume la [PokeAPI](https://pokeapi.co) y expone endpoints listos para ser consumidos por un frontend en React.
 
-# Creación de proyecto backend
+## 📦 Tecnologías usadas
 
-mkdir pokemon-api-backend
-cd pokemon-api-backend && npm init -y
-npm intall express cors axios
-npm install -D typescript @types/node @types/express @types/cors
+* **Node.js + Express** (framework backend)
+* **TypeScript** (tipado estático)
+* **Axios** (cliente HTTP para consumir la PokeAPI)
+* **Node-Cache** (caché en memoria)
+* **CORS** (integración con frontend React)
+* Arquitectura **Clean Architecture + SOLID**
 
-# Estructura de carpetas
+---
 
-/ src /
-|__ /controllers 
-|__ /services 
-|__ /routes 
-|__ /types 
-|__ /middleware 
-|__ /utils 
-|__ app.ts 
-|__ server.ts 
-.env
-package.json
-README.MD
+## ⚙️ Instalación y configuración
 
-# Configuración inicial
+### 1. Clonar repositorio
 
-## .env
-url de la api de pokeapi
-puerto para correr el backend
-variable para tener modo de desarrollo y producción
+```bash
+git clone https://github.com/tuusuario/pokemon-api-backend.git
+cd pokemon-api-backend
+```
 
-## app.ts
-instancia de express
-uso de cors y parseo de entrada de tipo json
+### 2. Instalar dependencias
 
-## server.ts
-llamamos al app.ts para correrlo en el puerto definido en el .env
-## package.json
-agregando comando `npm run dev` llama a server.ts
+```bash
+npm install
+```
 
-## types/pokemon.ts
-agregue los tipos necesarios para el proyecto
+### 3. Variables de entorno
 
-## services/pokemonService.ts
-Definición de la clase de pokemon service creando una clase para instanciar axios con el contructor y crear el primer metodo de obtener pokemon
+Crear archivo `.env` en la raíz con al menos:
+
+```env
+PORT=3000
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+POKEAPI_BASE_URL=https://pokeapi.co/api/v2
+```
+
+### 4. Ejecutar en modo desarrollo
+
+```bash
+npm run dev
+```
+
+### 5. Build y producción
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 📂 Estructura de carpetas
+
+```
+src/
+├── config/          # Configuración centralizada
+├── controllers/     # Controladores Express
+├── services/        # Lógica de negocio + acceso a APIs externas
+├── types/           # Tipos y DTOs
+├── utils/           # Helpers, validadores, errores
+├── routes/          # Definición de rutas
+├── app.ts           # Configuración principal de Express
+└── server.ts        # Punto de entrada
+```
+
+---
+
+## 🌐 Endpoints principales
+
+### Healthcheck
+
+`GET /health`
+
+### Pokémon
+
+* `GET /api/pokemon?page=1&limit=20` → Lista paginada de Pokémon
+* `GET /api/pokemon/:id` → Obtener detalle de un Pokémon
+* `GET /api/pokemon/search?name=pikachu` → Buscar por nombre
+* `GET /api/pokemon/search?type=fire&limit=10` → Buscar por tipo
+* `GET /api/pokemon/random` → Obtener Pokémon aleatorio
+* `GET /api/pokemon/:id/exists` → Verificar si existe
+
+### Caché
+
+* `GET /api/pokemon/cache/stats` → Estadísticas del caché
+* `DELETE /api/pokemon/cache` → Limpiar caché
+
+---
+
+## ✅ Características implementadas
+
+* Consumo de **PokeAPI** con Axios.
+* **Paginación** (`page`, `limit`) en listados.
+* **Búsqueda avanzada** (por nombre o tipo).
+* **Caché en backend** para reducir llamadas innecesarias.
+* **Manejo de errores tipado** (404, 400, 503).
+* **CORS configurado** para conectar con frontend en React.
+* **Estructura modular y escalable** bajo principios SOLID.
+
+---
+
+## 🔧 Mejoras opcionales
+
+* 🚦 Rate limiting para proteger la PokeAPI.
+* 📝 Documentación Swagger/OpenAPI.
+* 🧪 Tests con Jest + Supertest.
+* ☁️ Despliegue en Vercel / Render / AWS.
