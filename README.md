@@ -18,7 +18,7 @@ Backend en **Node.js + Express + TypeScript** que consume la [PokeAPI](https://p
 ### 1. Clonar repositorio
 
 ```bash
-git clone https://github.com/tuusuario/pokemon-api-backend.git
+git clone https://github.com/yoiberdev/pokemon-api-backend.git
 cd pokemon-api-backend
 ```
 
@@ -96,17 +96,10 @@ src/
 
 * Consumo de **PokeAPI** con Axios.
 * **Paginación** (`page`, `limit`) en listados.
-* **Búsqueda avanzada** (por nombre o tipo).
+* **Búsqueda** (por nombre o tipo).
 * **Caché en backend** para reducir llamadas innecesarias.
 * **Manejo de errores tipado** (404, 400, 503).
 * **CORS configurado** para conectar con frontend en React.
 * **Estructura modular y escalable** bajo principios SOLID.
 
 ---
-
-## 🔧 Mejoras opcionales
-
-* 🚦 Rate limiting para proteger la PokeAPI.
-* 📝 Documentación Swagger/OpenAPI.
-* 🧪 Tests con Jest + Supertest.
-* ☁️ Despliegue en Vercel / Render / AWS.
