@@ -14,15 +14,15 @@ export class PokemonValidators {
     const errors: string[] = [];
     
     if (params.name && (params.name.length < 2 || params.name.length > 50)) {
-      errors.push('Name must be between 2 and 50 characters');
+      errors.push('el nombre debe tener entre 2 y 50 caracteres');
     }
     
     if (params.type && params.type.length < 2) {
-      errors.push('Type must be at least 2 characters');
+      errors.push('el tipo debe tener al menos 2 caracteres');
     }
     
     if (params.limit && (params.limit < 1 || params.limit > POKEMON_CONSTANTS.MAX_PAGE_SIZE)) {
-      errors.push(`Limit must be between 1 and ${POKEMON_CONSTANTS.MAX_PAGE_SIZE}`);
+      errors.push(`el límite debe estar entre 1 y ${POKEMON_CONSTANTS.MAX_PAGE_SIZE}`);
     }
     
     return errors;

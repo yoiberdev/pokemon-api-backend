@@ -1,4 +1,4 @@
-import { CacheManager, type CacheKey } from '../../utils/cache/cache.js';
+import { CacheManager, type CacheKey } from '../../utils';
 import { ApiConfig } from '../../config/index.js';
 import type { Pokemon, PokemonSummary } from '../../types/index.js';
 
@@ -44,7 +44,7 @@ export class PokemonCache {
 
   clear(): void {
     this.cache.flush();
-    console.log('🗑️ Cache cleared');
+    console.log('Limpiando cache...');
   }
 
   getStats(): object {

@@ -20,21 +20,21 @@ export class PokeApiClient {
 
   private setupInterceptors(): void {
     this.client.interceptors.request.use((config) => {
-      console.log(`🚀 PokeAPI Call: ${config.method?.toUpperCase()} ${config.url}`);
+      console.log(`Llamada a PokeAPI: ${config.method?.toUpperCase()} ${config.url}`);
       return config;
     });
 
     this.client.interceptors.response.use(
       (response) => response,
       (error: AxiosError) => {
-        console.error('❌ PokeAPI Error:', error.message);
+        console.error('PokeAPI Error:', error.message);
         
         if (error.response?.status === 404) {
           throw new PokemonNotFoundError('Pokemon not found');
         }
         
         if (!error.response) {
-          throw new ApiConnectionError('Network error - Unable to reach PokeAPI');
+          throw new ApiConnectionError('Network error - Ha ocurrido un error al conectar con PokeAPI');
         }
         
         throw new ApiConnectionError(`HTTP ${error.response.status}: ${error.message}`);

@@ -13,7 +13,7 @@ export class PokemonNotFoundError extends BaseApiError {
   readonly isOperational = true;
   
   constructor(identifier: string | number) {
-    super(`Pokemon with identifier "${identifier}" not found`);
+    super(`no se encontró el pokemon con identificador "${identifier}"`);
   }
 }
 
@@ -22,7 +22,7 @@ export class ApiConnectionError extends BaseApiError {
   readonly isOperational = true;
   
   constructor(message: string) {
-    super(`API Connection Error: ${message}`);
+    super(`error de conexión con la API: ${message}`);
   }
 }
 
@@ -35,6 +35,5 @@ export class ValidationError extends BaseApiError {
   }
 }
 
-// Agregar al final del archivo:
-export { PokemonValidationError } from '../../utils/errors/PokemonErrors.js';
-export { RateLimitError, ServiceUnavailableError } from '../../utils/errors/ApiErrors.js';
+// al final
+export { PokemonValidationError, RateLimitError, ServiceUnavailableError } from '../../utils';

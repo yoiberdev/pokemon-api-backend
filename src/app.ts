@@ -1,13 +1,9 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { AppConfig } from './config/index.js';
 import pokemonRoutes from './routes/pokemon.js';
 
 const app = express();
-
-// ==========================================
-// MIDDLEWARE BÁSICO
-// ==========================================
 
 // CORS - Permitir requests del frontend
 app.use(cors({
@@ -47,7 +43,7 @@ app.get('/health', (req, res) => {
 // Ruta raíz
 app.get('/', (req, res) => {
   res.json({
-    message: '🚀 Pokemon API Backend - Refactored',
+    message: 'Pokemon API Backend - Refactored',
     version: '2.0.0',
     architecture: 'Clean Architecture with SOLID principles',
     endpoints: {
@@ -72,24 +68,20 @@ app.get('/', (req, res) => {
 // Rutas principales de Pokemon
 app.use('/api/pokemon', pokemonRoutes);
 
-// ==========================================
-// MIDDLEWARE DE ERROR
-// ==========================================
-
 // 404 - Ruta no encontrada
-// app.use('*', (req, res) => {
-//   res.status(404).json({
-//     success: false,
-//     error: `Route ${req.method} ${req.path} not found`,
-//     availableEndpoints: [
-//       '/health',
-//       '/api/pokemon',
-//       '/api/pokemon/:id',
-//       '/api/pokemon/search',
-//       '/api/pokemon/random'
-//     ]
-//   });
-// });
+app.use((req: Request, res: Response) => {
+  res.status(404).json({
+    success: false,
+    error: `Route ${req.method} ${req.originalUrl} not found`,
+    availableEndpoints: [
+      '/health',
+      '/api/pokemon',
+      '/api/pokemon/:id',
+      '/api/pokemon/search',
+      '/api/pokemon/random',
+    ],
+  });
+});
 
 // Error handler global
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

@@ -1,7 +1,7 @@
 import { PokeApiClient } from '../external/pokeApiClient.js';
 import { PokemonCache } from './pokemonCache.js';
 import { PokemonValidationService } from './pokemonValidation.js';
-import { POKEMON_CONSTANTS } from '../../utils/constants/pokemonConstants.js';
+import { POKEMON_CONSTANTS } from '../../utils';
 import type {
   Pokemon,
   PokemonSummary,
@@ -24,11 +24,11 @@ export class PokemonService {
     // Intentar obtener del cache
     const cached = this.cache.getPokemon(identifier);
     if (cached) {
-      console.log(`💾 Cache hit for ${identifier}`);
+      console.log(`cache encontrado para ${identifier}`);
       return cached;
     }
 
-    console.log(`🌐 Fetching ${identifier} from API`);
+    console.log(`buscando ${identifier} en la API`);
     const pokemon = await this.apiClient.getPokemon(identifier);
     
     // Guardar en cache
@@ -44,11 +44,11 @@ export class PokemonService {
     // Intentar obtener del cache
     const cached = this.cache.getPokemonList(page, limit);
     if (cached) {
-      console.log(`💾 Cache hit for list page ${page}`);
-      return this.buildPaginatedResponse(cached, page, limit, 1025); // Usar total conocido
+      console.log(`cache encontrado para lista pagina ${page}`);
+      return this.buildPaginatedResponse(cached, page, limit, 1025);
     }
 
-    console.log(`🌐 Fetching Pokemon list page ${page} from API`);
+    console.log(`buscando lista de pokemon pagina ${page} en la API`);
     
     const listResponse = await this.apiClient.getPokemonList(limit, offset);
 
@@ -74,7 +74,7 @@ export class PokemonService {
     // Intentar obtener del cache
     const cached = this.cache.getSearchResults(searchKey);
     if (cached) {
-      console.log(`💾 Cache hit for search: ${searchKey}`);
+      console.log(`cache encontrado para busqueda: ${searchKey}`);
       return cached;
     }
 
@@ -115,7 +115,7 @@ export class PokemonService {
     return this.cache.getStats();
   }
 
-  // Private helper methods
+  // Métodos privados
   private async getPokemonSummary(identifier: PokemonIdentifier): Promise<PokemonSummary> {
     const pokemon = await this.getPokemon(identifier);
     return this.transformToPokemonSummary(pokemon);
@@ -137,14 +137,14 @@ export class PokemonService {
       const pokemon = await this.getPokemon(name.toLowerCase());
       return [this.transformToPokemonSummary(pokemon)];
     } catch {
-      console.log(`🔍 Exact match not found for "${name}", searching in list...`);
+      console.log(`no se encontro exacto "${name}", buscando en la lista...`);
       return this.searchInPokemonList(name, limit);
     }
   }
 
   private async searchByType(type: string, limit: number): Promise<PokemonSummary[]> {
     try {
-      console.log(`🔍 Searching Pokemon by type: ${type}`);
+      console.log(`buscando pokemons por tipo: ${type}`);
       const response = await this.apiClient.getTypePokemons(type);
       
       const pokemonList = response.pokemon.slice(0, limit);
@@ -155,7 +155,7 @@ export class PokemonService {
 
       return await Promise.all(pokemonPromises);
     } catch (error) {
-      console.error(`Error searching by type ${type}:`, error);
+      console.error(`error buscando por tipo ${type}:`, error);
       return [];
     }
   }

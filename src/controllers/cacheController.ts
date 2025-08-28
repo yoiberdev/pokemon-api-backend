@@ -17,42 +17,42 @@ const createResponse = <T>(
 export class CacheController {
   async clearCache(req: Request, res: Response): Promise<void> {
     try {
-      console.log('🗑️ Clearing cache');
+      console.log('limpiando cache');
       pokemonService.clearCache();
 
       res.status(200).json(createResponse(
         true,
         undefined,
-        'Cache cleared successfully'
+        'cache limpiada'
       ));
     } catch (error) {
-      console.error('❌ Cache Controller Error:', error);
+      console.error('error en cache controller (clearCache):', error);
       res.status(500).json(createResponse(
         false,
         undefined,
         undefined,
-        'Failed to clear cache'
+        'no se pudo limpiar el cache'
       ));
     }
   }
 
   async getCacheStats(req: Request, res: Response): Promise<void> {
     try {
-      console.log('📊 Getting cache stats');
+      console.log('obteniendo estadisticas de cache');
       const stats = pokemonService.getCacheStats();
 
       res.status(200).json(createResponse(
         true,
         stats,
-        'Cache statistics retrieved successfully'
+        'estadisticas de cache obtenidas'
       ));
     } catch (error) {
-      console.error('❌ Cache Controller Error:', error);
+      console.error('error en cache controller (getCacheStats):', error);
       res.status(500).json(createResponse(
         false,
         undefined,
         undefined,
-        'Failed to retrieve cache stats'
+        'no se pudieron obtener las estadisticas de cache'
       ));
     }
   }

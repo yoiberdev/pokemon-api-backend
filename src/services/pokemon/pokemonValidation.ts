@@ -1,4 +1,4 @@
-import { PokemonValidators } from '../../utils/validators/pokemonValidators.js';
+import { PokemonValidators } from '../../utils';
 import { PokemonValidationError } from '../../types/index.js';
 import type { SearchParams, PokemonIdentifier } from '../../types/index.js';
 
@@ -6,8 +6,8 @@ export class PokemonValidationService {
   validateIdentifier(identifier: PokemonIdentifier): void {
     if (!PokemonValidators.validateIdentifier(identifier)) {
       throw new PokemonValidationError(
-        'Invalid Pokemon identifier',
-        ['Identifier must be a valid Pokemon ID (1-1025) or name']
+        'Identificador de pokemon no válido',
+        ['Debe ser un número entre 1 y 1025 o un nombre']
       );
     }
   }
@@ -16,13 +16,13 @@ export class PokemonValidationService {
     const errors = PokemonValidators.validateSearchParams(params);
     
     if (errors.length > 0) {
-      throw new PokemonValidationError('Invalid search parameters', errors);
+      throw new PokemonValidationError('Parámetros de búsqueda no válidos', errors);
     }
 
     if (!params.name && !params.type) {
       throw new PokemonValidationError(
-        'Search requires parameters',
-        ['Either name or type parameter is required']
+        'La búsqueda necesita al menos un dato',
+        ['Debes poner un nombre o un tipo para buscar']
       );
     }
   }

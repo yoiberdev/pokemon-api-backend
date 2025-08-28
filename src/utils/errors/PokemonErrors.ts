@@ -1,6 +1,6 @@
 export class PokemonNotFoundError extends Error {
   constructor(identifier: string | number) {
-    super(`Pokemon with identifier "${identifier}" not found`);
+    super(`no se encontró el pokemon con identificador "${identifier}"`);
     this.name = 'PokemonNotFoundError';
   }
 }

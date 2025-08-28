@@ -1,105 +1,107 @@
-# 🚀 Pokémon API Backend
-
-Backend en **Node.js + Express + TypeScript** que consume la [PokeAPI](https://pokeapi.co) y expone endpoints listos para ser consumidos por un frontend en React.
-
-## 📦 Tecnologías usadas
-
-* **Node.js + Express** (framework backend)
-* **TypeScript** (tipado estático)
-* **Axios** (cliente HTTP para consumir la PokeAPI)
-* **Node-Cache** (caché en memoria)
-* **CORS** (integración con frontend React)
-* Arquitectura **Clean Architecture + SOLID**
+Perfecto, aquí tienes el mismo README pero sin emojis, más sobrio y con un tono natural e informal:
 
 ---
 
-## ⚙️ Instalación y configuración
+# Pokémon API Backend
 
-### 1. Clonar repositorio
-
-```bash
-git clone https://github.com/yoiberdev/pokemon-api-backend.git
-cd pokemon-api-backend
-```
-
-### 2. Instalar dependencias
-
-```bash
-npm install
-```
-
-### 3. Variables de entorno
-
-Crear archivo `.env` en la raíz con al menos:
-
-```env
-PORT=3000
-NODE_ENV=development
-FRONTEND_URL=http://localhost:5173
-POKEAPI_BASE_URL=https://pokeapi.co/api/v2
-```
-
-### 4. Ejecutar en modo desarrollo
-
-```bash
-npm run dev
-```
-
-### 5. Build y producción
-
-```bash
-npm run build
-npm start
-```
+Este proyecto es un backend en **Node.js + Express + TypeScript** que consume la [PokeAPI](https://pokeapi.co) y expone endpoints listos para que un frontend pueda usarlos (búsqueda, paginación, detalle, etc).
 
 ---
 
-## 📂 Estructura de carpetas
+## Cómo levantarlo
+
+1. Clonar el repo
+
+   ```bash
+   git clone https://github.com/tuusuario/pokemon-api-backend.git
+   cd pokemon-api-backend
+   ```
+
+2. Instalar dependencias
+
+   ```bash
+   npm install
+   ```
+
+3. Crear archivo `.env` en la raíz con algo así:
+
+   ```env
+   PORT=3000
+   NODE_ENV=development
+   FRONTEND_URL=http://localhost:5173
+   POKEAPI_BASE_URL=https://pokeapi.co/api/v2
+   ```
+
+4. Correr en modo dev
+
+   ```bash
+   npm run dev
+   ```
+
+5. Build y producción
+
+   ```bash
+   npm run build
+   npm start
+   ```
+
+---
+
+## Estructura
+
+El código está dividido en capas para practicar un poco de arquitectura limpia:
 
 ```
 src/
-├── config/          # Configuración centralizada
-├── controllers/     # Controladores Express
-├── services/        # Lógica de negocio + acceso a APIs externas
-├── types/           # Tipos y DTOs
-├── utils/           # Helpers, validadores, errores
-├── routes/          # Definición de rutas
-├── app.ts           # Configuración principal de Express
-└── server.ts        # Punto de entrada
+├── config/        # Configuración centralizada
+├── controllers/   # Lógica de controladores Express
+├── services/      # Lógica de negocio y acceso a la PokeAPI
+├── types/         # Tipos y DTOs en TS
+├── utils/         # Validadores, helpers, errores
+├── routes/        # Definición de rutas
+├── app.ts         # Config principal de Express
+└── server.ts      # Punto de entrada
 ```
 
 ---
 
-## 🌐 Endpoints principales
+## Endpoints principales
 
-### Healthcheck
-
-`GET /health`
-
-### Pokémon
-
-* `GET /api/pokemon?page=1&limit=20` → Lista paginada de Pokémon
-* `GET /api/pokemon/:id` → Obtener detalle de un Pokémon
+* `GET /api/pokemon?page=1&limit=20` → Lista paginada
 * `GET /api/pokemon/search?name=pikachu` → Buscar por nombre
-* `GET /api/pokemon/search?type=fire&limit=10` → Buscar por tipo
-* `GET /api/pokemon/random` → Obtener Pokémon aleatorio
-* `GET /api/pokemon/:id/exists` → Verificar si existe
-
-### Caché
-
-* `GET /api/pokemon/cache/stats` → Estadísticas del caché
+* `GET /api/pokemon/:id` → Detalle de un Pokémon
+* `GET /api/pokemon/random` → Pokémon aleatorio
+* `GET /api/pokemon/cache/stats` → Ver estado del caché
 * `DELETE /api/pokemon/cache` → Limpiar caché
 
 ---
 
-## ✅ Características implementadas
+## Lo que hice
 
-* Consumo de **PokeAPI** con Axios.
-* **Paginación** (`page`, `limit`) en listados.
-* **Búsqueda** (por nombre o tipo).
-* **Caché en backend** para reducir llamadas innecesarias.
-* **Manejo de errores tipado** (404, 400, 503).
-* **CORS configurado** para conectar con frontend en React.
-* **Estructura modular y escalable** bajo principios SOLID.
+* Consumo de la PokeAPI con **Axios**.
+* Endpoints con paginación y búsqueda.
+* Caché en memoria con `node-cache` para evitar llamadas repetidas.
+* Middleware de errores para devolver JSON claros.
+* Estructura modular para que sea más fácil mantener y extender.
 
 ---
+
+## Cosas que me gustaría mejorar
+
+* Agregar tests automáticos con Jest o Supertest (me interesa aprenderlo).
+* Integrar documentación con Swagger para ver los endpoints más fácil.
+* Montar un pipeline de CI/CD (por ejemplo, con Render + GitHub Actions) para que cada push despliegue solo.
+* Optimizar la carga de la lista (ahora pide detalle de cada Pokémon, me gustaría probar limitar concurrencia o usar otra estrategia).
+
+---
+
+## Lo que aprendí haciendo este reto
+
+* Cómo manejar paginación con `offset` y `limit`.
+* Mejoré mi manejo de capas en Express y TypeScript.
+* Vi en la práctica cómo ayuda tener un caché para no saturar una API externa.
+* Aprendí qué pasos seguiría para un deploy con Render y GitHub Actions.
+
+---
+
+¿Quieres que te arme también un apartado de **cómo desplegar en Render** explicado en este mismo estilo, como si fueras tú el que lo investigó?
